@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact • SUITING FABRICS</title>
+</head>
+
+<body>
+  <div id="siteHeader"></div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+
+        <div class="section-head">
+          <h2>Contact</h2>
+          <div class="muted">Nous répondons rapidement sur WhatsApp</div>
+        </div>
+
+        <div class="contact-layout">
+          <!-- LEFT: infos -->
+          <div class="contact-card">
+            <h3 class="contact-title">Nos informations</h3>
+
+            <div class="contact-lines">
+              <div class="contact-line">
+                <span class="c-label">Téléphone</span>
+                <span class="c-value">+212 6 61 93 55 47</span>
+              </div>
+
+              <div class="contact-line">
+                <span class="c-label">Adresse</span>
+                <span class="c-value">Rue Jeddah, Nador</span>
+              </div>
+
+              <div class="contact-line">
+                <span class="c-label">Horaires</span>
+                <span class="c-value">10:00 – 20:00</span>
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <a class="btn primary" href="https://wa.me/212661935547" target="_blank" rel="noopener noreferrer">
+                Commander sur WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- RIGHT: form -->
+          <div class="contact-card">
+            <h3 class="contact-title">Envoyez-nous un message</h3>
+
+            <form id="contactForm" class="contact-form">
+              <input class="input" type="text" name="name" placeholder="Votre nom" required>
+              <input class="input" type="tel" name="phone" placeholder="Votre téléphone" required>
+              <textarea class="input contact-textarea" name="message" placeholder="Votre message..." required></textarea>
+
+              <button class="btn primary" type="submit">Envoyer</button>
+              <div id="formMsg" class="muted small"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- MAP (under both) -->
+        <div class="map-card contact-map">
+          <div class="map-box">
+            <iframe
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Rue%20Jeddah%20Nador&output=embed">
+            </iframe>
+          </div>
+
+          <div class="map-info">
+            <h3>Notre emplacement</h3>
+
+            <div class="info-line">
+              <span class="info-label">Adresse</span>
+              <span class="info-value">Rue Jeddah, Nador</span>
+            </div>
+
+            <div class="info-actions">
+              <a class="btn primary" target="_blank" rel="noopener noreferrer"
+                 href="https://maps.app.goo.gl/nFY5XGmY7UeGNuor8">
+                Ouvrir dans Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="siteFooter"></div>
+
+  <script src="./assets/js/layout.js"></script>
+  <script type="module" src="./assets/js/app.js"></script>
+</body>
+</html>

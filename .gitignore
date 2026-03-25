@@ -1,0 +1,8 @@
+# Backend secrets
+backend/.env
+backend/node_modules/
+backend/cleanup.js
+
+# OS
+.DS_Store
+Thumbs.db

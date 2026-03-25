@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Admin Dashboard • SUITING FABRICS</title>
+  <style>
+    /* Admin Specific Styles */
+    body { background-color: #f4f4f4; }
+    .admin-container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+    .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    @media (max-width: 768px) { .admin-grid { grid-template-columns: 1fr; } }
+    
+    /* Login overlay */
+    #loginOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+    .login-box { background: white; padding: 30px; border-radius: 8px; text-align: center; width: 300px; }
+    
+    /* form styles */
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem;}
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .checkbox-group { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+    
+    /* Products List */
+    .product-list-item { display: flex; align-items: center; justify-content: space-between; background: #fafafa; border: 1px solid #eee; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+    .product-list-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 15px; }
+    .product-list-info { flex-grow: 1; }
+    .product-list-title { font-weight: 600; font-size: 0.9rem; }
+    .product-list-price { color: #666; font-size: 0.8rem; }
+    
+    /* Code Generator area */
+    .code-generator-section { margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; }
+    #generatedCode { width: 100%; height: 300px; font-family: monospace; background: #222; color: #0f0; padding: 15px; border-radius: 4px; white-space: pre; overflow-x: auto; margin-top: 10px;}
+    .copy-banner { background: #dff0d8; color: #3c763d; padding: 10px; border-radius: 4px; margin-top: 10px; text-align: center; display: none; font-weight: 600;}
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN OVERLAY -->
+  <div id="loginOverlay">
+    <div class="login-box">
+      <h2>Admin Login</h2>
+      <p style="margin-bottom: 15px; font-size: 0.9rem; color:#666;">Entrez le mot de passe pour accéder</p>
+      <input type="password" id="adminPassword" class="input" placeholder="Mot de passe" style="margin-bottom: 15px;">
+      <button id="loginBtn" class="btn primary" style="width: 100%;">Se connecter</button>
+      <p id="loginError" style="color: red; font-size: 0.8rem; margin-top: 10px; display: none;">Mot de passe incorrect</p>
+    </div>
+  </div>
+
+  <div class="admin-container" id="adminContent" style="display: none;">
+    <div class="admin-header">
+      <h1>Gestion des Produits</h1>
+      <a href="index.html" class="btn">Retour au site</a>
+    </div>
+
+    <div class="admin-grid">
+      <!-- LEFT: ADD PRODUCT FORM -->
+      <div class="admin-form-section">
+        <h2>Ajouter / Modifier un Thobe</h2>
+        <form id="addProductForm">
+          <input type="hidden" id="productId">
+          
+          <div class="form-group">
+            <label>Nom du Produit</label>
+            <input type="text" id="pName" required placeholder="Ex: Tissu Simple Noir">
+          </div>
+          
+          <div class="form-group">
+            <label>Prix (MAD)</label>
+            <input type="number" id="pPrice" required placeholder="Ex: 350">
+          </div>
+          
+          <div class="form-group">
+            <label>Catégorie</label>
+            <select id="pCategory">
+              <option value="simple">Simple</option>
+              <option value="imprime">Imprimé</option>
+              <option value="motifs">Motifs</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Image du produit (Lien ou Télécharger)</label>
+            <input type="text" id="pImage" placeholder="Lien de l'image (ex: http...)">
+            <input type="file" id="pImageFile" accept="image/*" class="input" style="margin-top: 10px;">
+          </div>
+
+          <div class="form-group">
+            <label>Description (courte)</label>
+            <textarea id="pDesc" required placeholder="Ex: Tissu confortable et élégant..."></textarea>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="pIsNew"> <label for="pIsNew" style="margin:0;">Nouveau ?</label>
+            <span style="width: 20px;"></span>
+            <input type="checkbox" id="pBestSeller"> <label for="pBestSeller" style="margin:0;">Meilleure vente ? (Affiche à l'accueil)</label>
+          </div>
+
+          <button type="submit" class="btn primary" style="width: 100%;">Ajouter le produit</button>
+          <button type="button" id="cancelEditBtn" class="btn" style="width: 100%; margin-top:10px; display:none;">Annuler la modification</button>
+        </form>
+      </div>
+
+      <!-- RIGHT: PRODUCT LIST -->
+      <div class="admin-list-section">
+        <h2>Produits actuels (<span id="pCount">0</span>)</h2>
+        <div id="adminProductList" style="max-height: 500px; overflow-y: auto; padding-right: 10px;">
+          <!-- List renders here via JS -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="./assets/js/admin.js"></script>
+</body>
+</html>

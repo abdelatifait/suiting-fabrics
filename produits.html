@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+
+  <title>Produits • SUITING FABRICS</title>
+</head>
+<body>
+
+  <div id="siteHeader"></div>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title" style="text-align:left;margin:0">Produits</h2>
+          <div class="filters">
+            <input id="searchInput" class="input" type="search" placeholder="Rechercher un thobe..." />
+            <select id="sortSelect" class="input">
+              <option value="featured">En vedette</option>
+              <option value="price_asc">Prix : bas → haut</option>
+              <option value="price_desc">Prix : haut → bas</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cat-tabs" id="catTabs">
+          <a class="cat-tab" href="produits.html">Tous</a>
+          <a class="cat-tab" href="produits.html?cat=imprime">Imprimé</a>
+          <a class="cat-tab" href="produits.html?cat=simple">Simple</a>
+          <a class="cat-tab" href="produits.html?cat=motifs">Motifs</a>
+        </div>
+
+        <div id="productsGrid" class="grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Wishlist Drawer -->
+  <div id="wishDrawer" class="drawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h3>Favoris</h3>
+        <button id="closeWishBtn" class="icon-btn" type="button">✕</button>
+      </div>
+
+      <div id="wishItems" class="cart-items"></div>
+
+      <div class="drawer-foot">
+        <button id="wishOrderBtn" class="btn primary" type="button">Commander ces favoris via WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="siteFooter"></div>
+
+  <script src="./assets/js/layout.js"></script>
+  <script type="module" src="./assets/js/app.js"></script>
+</body>
+</html>
