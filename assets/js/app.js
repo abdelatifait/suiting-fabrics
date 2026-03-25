@@ -1,6 +1,5 @@
-// import { PRODUCTS } from "./products-data.js";
+const API_URL = "https://suiting-fabrics-production.up.railway.app/api";
 let PRODUCTS = [];
-const API_URL = "http://localhost:3001/api"; // To be updated to Railway URL later
 
 
 /* ========= LIKES (Favoris) ========= */

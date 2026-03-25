@@ -1,6 +1,4 @@
-// import { PRODUCTS } from "./products-data.js";
-
-const API_URL = "http://localhost:3001/api"; // Will change to Railway URL
+const API_URL = "https://suiting-fabrics-production.up.railway.app/api";
 
 // --- State ---
 let currentProducts = [];
