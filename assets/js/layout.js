@@ -12,52 +12,21 @@
   const WHATSAPP_NUMBER = "212661935547"; // بدون +
 
   const iconInstagram = `
-  <svg viewBox="0 0 24 24" class="header-icon" aria-hidden="true">
-    <rect x="6" y="6" width="12" height="12" rx="3"
-      fill="none" stroke="currentColor" stroke-width="1.7"/>
-    <circle cx="12" cy="12" r="3"
-      fill="none" stroke="currentColor" stroke-width="1.7"/>
-    <circle cx="16.2" cy="7.8" r="0.9" fill="currentColor"/>
+  <svg viewBox="0 0 24 24" class="header-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
   </svg>`;
 
   const iconWhatsApp = `
-  <svg viewBox="0 0 24 24" class="header-icon" aria-hidden="true">
-    <path d="M12 3a8.5 8.5 0 0 0-7.3 12.9L4 21l5.3-0.7A8.5 8.5 0 1 0 12 3z"
-      fill="none" stroke="currentColor" stroke-width="1.7"
-      stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M9.2 9.2c.3-.4.6-.4.9-.2l.8.6c.3.2.3.5.2.8l-.3.7c-.1.3 0 .6.2.8.8.9 1.7 1.6 2.8 2.1.3.1.6.1.8-.1l.6-.5c.3-.2.6-.2.9 0l.8.5c.3.2.4.5.3.8-.2.7-.8 1.2-1.5 1.3-2.1.3-5.2-1.8-6.8-4.1-1-1.5-1.2-2.7-.7-3.7z"
-      fill="none" stroke="currentColor" stroke-width="1.5"
-      stroke-linecap="round" stroke-linejoin="round"/>
+  <svg viewBox="0 0 24 24" class="header-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-12.7 8.38 8.38 0 0 1 3.8.9L22 2l-1.5 5.5Z"></path>
   </svg>`;
 
   const iconHeart = `
-<svg viewBox="0 0 24 24" class="like-icon" aria-hidden="true" style="overflow:visible">
-  <path class="like-path"
-    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
-       2 6 4 4 6.5 4
-       8.24 4 9.91 4.81 11 6.09
-       12.09 4.81 13.76 4 15.5 4
-       18 4 20 6 20 8.5
-       20 12.28 16.6 15.36 13.45 20.03
-       L12 21.35Z"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.9"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>
-
-  <path
-    d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 0 1-1.344-.757 25.683 25.683 0 0 1-2.617-1.772C4.688 16.17 2.25 13.497 2.25 10.5 2.25 8.014 4.264 6 6.75 6c1.4 0 2.716.662 3.5 1.688A4.5 4.5 0 0 1 13.75 6c2.486 0 4.5 2.014 4.5 4.5 0 2.997-2.438 5.67-5.405 7.866a25.684 25.684 0 0 1-2.617 1.772 15.247 15.247 0 0 1-1.344.757l-.022.012-.007.003-.003.002a.75.75 0 0 1-.704 0l-.003-.002Z"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.9"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>
-`;
+  <svg viewBox="0 0 24 24" class="header-icon heart-icon-main" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>`;
 
 
 

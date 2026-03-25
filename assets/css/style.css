@@ -657,27 +657,16 @@ h1,h2,h3,h4{
 }
 
 .header-icon{
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display:block;
   color: var(--brand-1);
+  stroke-width: 2;
 }
 
-.heart-icon{
+.heart-icon-main {
   width: 20px;
   height: 20px;
-  display:block;
-}
-
-.heart-icon path{
-  stroke-width: 2.2; /* كيشبه للصورة اللي عطيتيني */
-}
-/* Heart icon fix: never clip */
-.heart-icon{
-  width: 20px;
-  height: 20px;
-  display:block;
-  overflow: visible !important;
 }
 /* Like button (heart) */
 .like-btn{
@@ -702,10 +691,15 @@ h1,h2,h3,h4{
   height: 20px;
   display:block;
   color: var(--brand-1);
-  overflow: visible;
+  transition: fill 0.3s ease, transform 0.2s ease;
 }
 
 /* When liked: dark filled */
+.like-btn.liked .like-icon{
+  fill: currentColor;
+  transform: scale(1.1);
+}
+
 .like-btn.liked{
   background: rgba(0,0,0,.04);
   border-color: rgba(0,0,0,.18);
@@ -781,9 +775,14 @@ h1,h2,h3,h4{
 }
 
 .product-card .like-btn.liked{
-  color: #252122; /* غامق */
-  background: rgba(0,0,0,.06);
-  border-color: rgba(0,0,0,.18);
+  background: rgba(255, 255, 255, 1);
+  border-color: var(--brand-1);
+}
+
+.product-card .like-btn.liked .like-icon {
+  fill: #e63946; /* A nice professional red for liked products */
+  color: #e63946;
+  stroke: #e63946;
 }
 
 /* Card image container */

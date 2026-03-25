@@ -50,31 +50,8 @@ function productCardHTML(p) {
 
         <!-- ❤️ Like overlay -->
         <button class="like-btn ${liked ? "liked" : ""}" type="button" data-like="${p.id}" aria-label="J'aime">
-          <svg viewBox="0 0 24 24" class="like-icon" aria-hidden="true" style="overflow:visible">
-  <path class="like-path"
-    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
-       2 6 4 4 6.5 4
-       8.24 4 9.91 4.81 11 6.09
-       12.09 4.81 13.76 4 15.5 4
-       18 4 20 6 20 8.5
-       20 12.28 16.6 15.36 13.45 20.03
-       L12 21.35Z"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.9"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>
-
-            <path class="like-path"
-              d="M12 21s-7.5-4.9-9.8-9.6C0.8 8.2 3.1 5.5 6.2 5.5c1.9 0 3.4 1 4.2 2.3.8-1.3 2.3-2.3 4.2-2.3 3.1 0 5.4 2.7 4 5.9C19.5 16.1 12 21 12 21z"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+          <svg viewBox="0 0 24 24" class="like-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
         </button>
       </div>
