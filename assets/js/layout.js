@@ -37,7 +37,13 @@
   <div class="container header-row">
 
     <div class="header-left">
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu">☰</button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
       <nav class="nav-left" id="mainNav">
         ${navLinks.map(l => `<a href="${l.href}" class="${l.href === current ? "active" : ""}">${l.label}</a>`).join("")}
       </nav>

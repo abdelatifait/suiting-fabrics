@@ -190,6 +190,17 @@ h1,h2,h3,h4{
   .hide-mobile{display:none !important;}
   .header-left{gap:10px}
   .header-right{gap:10px}
+
+  /* Make icons 10% smaller on mobile as requested */
+  .icon-link, .nav-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+  .header-icon, .heart-icon-main {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 /* ===== Hero ===== */
