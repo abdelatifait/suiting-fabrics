@@ -24,6 +24,18 @@ router.post('/login', (req, res) => {
   return res.status(401).json({ success: false, message: 'Mot de passe incorrect' });
 });
 
+// GET /api/admin/test-storage-upload - Diagnostic route to test Supabase Storage from Railway
+router.get('/test-storage-upload', async (req, res) => {
+  try {
+    const { data, error } = await supabase.storage
+      .from('product-images')
+      .upload(`test-${Date.now()}.txt`, 'Hello from Railway', { contentType: 'text/plain' });
+    res.json({ success: true, data, error });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message, stack: err.stack });
+  }
+});
+
 // GET /api/admin/products — Liste tous les produits (admin)
 router.get('/products', requireAdmin, async (req, res) => {
   try {
