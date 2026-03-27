@@ -41,8 +41,10 @@ router.get('/products', requireAdmin, async (req, res) => {
 
 // POST /api/admin/products — Ajouter un produit
 router.post('/products', requireAdmin, async (req, res) => {
+  console.log('Received POST /api/admin/products request.', req.body);
   try {
     const { name, price, category, description, image_url, images, is_new, best_seller } = req.body;
+    console.log('Calling Supabase insert...', { name, price });
     const { data, error } = await supabase
       .from('products')
       .insert([{ name, price, category, description, image_url, images: images || [], is_new, best_seller }])
@@ -100,9 +102,12 @@ router.post('/upload', requireAdmin, upload.array('images', 5), async (req, res)
     for (const file of req.files) {
       const fileName = `products/${Date.now()}-${Math.floor(Math.random() * 1000)}-${file.originalname.replace(/[^a-zA-Z0-9.]/g, '_')}`;
 
+      // Convert Node Buffer to standard ArrayBuffer for Supabase Storage (prevents Node 18 native fetch hanging)
+      const arrayBuffer = new Uint8Array(file.buffer).buffer;
+
       const { error: uploadError } = await supabase.storage
         .from('product-images')
-        .upload(fileName, file.buffer, {
+        .upload(fileName, arrayBuffer, {
           contentType: file.mimetype,
           upsert: false
         });
