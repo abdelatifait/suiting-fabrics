@@ -258,7 +258,7 @@ h1,h2,h3,h4{
   overflow:hidden;
   box-shadow:var(--shadow);
 }
-.card-img{height:240px;overflow:hidden;background:#f3f4f6}
+.card-img{aspect-ratio:4/5;width:100%;overflow:hidden;background:#f3f4f6}
 .card-img img{width:100%;height:100%;object-fit:cover;display:block}
 .card-body{padding:14px}
 .card-title{margin:0 0 6px;font-family:"Montserrat";font-weight:700;font-size:15px}
@@ -322,7 +322,7 @@ h1,h2,h3,h4{
   min-height:280px;
 }
 .category-card:hover{transform:translateY(-3px)}
-.category-img{height:220px;background-size:cover;background-position:center;filter:grayscale(15%)}
+.category-img{aspect-ratio:4/5;width:100%;background-size:cover;background-position:center;filter:grayscale(15%)}
 .cat-1{background-image:url("../img/categories/simple.jpg")}
 .cat-2{background-image:url("../img/categories/imprime.jpg")}
 .cat-3{background-image:url("../img/categories/motifs.jpg")}
@@ -707,7 +707,8 @@ h1,h2,h3,h4{
 /* Make image container relative so overlay works */
 .card-img{
   position: relative;
-  height: 240px;              /* عندك أصلاً */
+  aspect-ratio: 4/5;
+  width: 100%;
   background:#f3f4f6;
   overflow: hidden;
 }
@@ -1631,7 +1632,7 @@ main{
   position:relative;
   background:var(--bg-2);
   overflow:hidden;
-  min-height:340px;
+  aspect-ratio:4/5;
   display:flex;align-items:center;justify-content:center;
 }
 .modal-img-wrap img{
@@ -1722,8 +1723,7 @@ main{
     border-radius:16px;
   }
   .modal-img-wrap{
-    min-height:240px;
-    max-height:280px;
+    max-height: 50vh; /* keep text visible without excessive scrolling */
   }
   .modal-info{
     padding:20px 18px;
