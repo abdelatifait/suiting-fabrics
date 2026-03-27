@@ -1580,3 +1580,155 @@ main{
   text-align: center;
   width: 100%;
 }
+
+/* ===== Product Detail Modal ===== */
+.product-modal{
+  position:fixed;inset:0;z-index:2000;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease;
+}
+.product-modal.open{
+  opacity:1;pointer-events:all;
+}
+
+.modal-panel{
+  position:relative;
+  background:#fff;
+  border-radius:var(--radius);
+  box-shadow:0 24px 64px rgba(0,0,0,.18);
+  width:100%;max-width:860px;
+  max-height:90vh;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  transform:translateY(18px) scale(.97);
+  transition:transform .25s cubic-bezier(.22,1,.36,1);
+}
+.product-modal.open .modal-panel{
+  transform:translateY(0) scale(1);
+}
+
+/* Close button */
+.modal-close{
+  position:absolute;top:12px;right:12px;z-index:10;
+  width:36px;height:36px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.92);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;line-height:1;
+  color:var(--text);
+  transition:background .12s ease,transform .12s ease;
+}
+.modal-close:hover{background:#fff;transform:scale(1.08)}
+
+/* Image side */
+.modal-img-wrap{
+  position:relative;
+  background:var(--bg-2);
+  overflow:hidden;
+  min-height:340px;
+  display:flex;align-items:center;justify-content:center;
+}
+.modal-img-wrap img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:opacity .18s ease;
+}
+
+/* Slider arrows */
+.modal-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:38px;height:38px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.88);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+  color:var(--text);
+  transition:background .12s ease,transform .12s ease;
+  z-index:5;
+}
+.modal-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+.modal-arrow-prev{left:10px}
+.modal-arrow-next{right:10px}
+.modal-arrow.hidden{display:none}
+
+/* Dots */
+.modal-dots{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;
+}
+.modal-dot{
+  width:7px;height:7px;border-radius:999px;
+  background:rgba(0,0,0,.22);
+  border:none;cursor:pointer;padding:0;
+  transition:background .14s ease,transform .14s ease;
+}
+.modal-dot.active{background:var(--brand-1);transform:scale(1.25)}
+
+/* Info side */
+.modal-info{
+  padding:28px 24px;
+  overflow-y:auto;
+  display:flex;flex-direction:column;gap:14px;
+}
+.modal-category{
+  font-size:11px;letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--muted);font-weight:700;
+}
+.modal-name{
+  margin:0;
+  font-family:"Montserrat",sans-serif;
+  font-size:22px;font-weight:800;
+  line-height:1.25;
+}
+.modal-price{
+  font-family:"Montserrat",sans-serif;
+  font-size:26px;font-weight:900;
+  color:var(--brand-1);
+}
+.modal-divider{
+  width:36px;height:2px;
+  background:var(--line);border-radius:99px;
+}
+.modal-desc{
+  margin:0;color:var(--muted);
+  font-size:14px;line-height:1.75;
+}
+.modal-wa-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 20px;border-radius:999px;
+  background:var(--brand-1);color:#fff;
+  font-weight:800;font-size:14px;letter-spacing:.3px;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:background .12s ease,transform .1s ease;
+  margin-top:auto;
+}
+.modal-wa-btn:hover{background:#0f0f10;transform:translateY(-1px)}
+.modal-wa-btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* Mobile: stack vertically */
+@media (max-width:640px){
+  .modal-panel{
+    grid-template-columns:1fr;
+    max-height:92vh;
+    overflow-y:auto;
+    border-radius:16px;
+  }
+  .modal-img-wrap{
+    min-height:240px;
+    max-height:280px;
+  }
+  .modal-info{
+    padding:20px 18px;
+  }
+  .modal-name{font-size:18px}
+  .modal-price{font-size:22px}
+}
+
