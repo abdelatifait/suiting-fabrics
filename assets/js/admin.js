@@ -28,8 +28,11 @@ const productId = document.getElementById("productId");
 const pName = document.getElementById("pName");
 const pPrice = document.getElementById("pPrice");
 const pCategory = document.getElementById("pCategory");
-const pImage = document.getElementById("pImage"); 
-const pImageFile = document.getElementById("pImageFile");
+const pImage1 = document.getElementById("pImage1");
+const pImage2 = document.getElementById("pImage2");
+const pImage3 = document.getElementById("pImage3");
+const pImage4 = document.getElementById("pImage4");
+let currentOldImages = [];
 
 const pDesc = document.getElementById("pDesc");
 const pIsNew = document.getElementById("pIsNew");
@@ -140,14 +143,20 @@ addProductForm.addEventListener("submit", async (e) => {
   formSubmitBtn.textContent = "Traitement en cours...";
 
   try {
-    let imgPath = pImage.value;
     let imgArray = [];
+    let imgPath = "";
+    const filesToUpload = [];
+
+    if (pImage1.files[0]) filesToUpload.push(pImage1.files[0]);
+    if (pImage2.files[0]) filesToUpload.push(pImage2.files[0]);
+    if (pImage3.files[0]) filesToUpload.push(pImage3.files[0]);
+    if (pImage4.files[0]) filesToUpload.push(pImage4.files[0]);
 
     // Handle image upload if files are selected
-    if (pImageFile.files.length > 0) {
+    if (filesToUpload.length > 0) {
       const formData = new FormData();
-      for (let i = 0; i < pImageFile.files.length; i++) {
-        formData.append("images", pImageFile.files[i]);
+      for (const file of filesToUpload) {
+        formData.append("images", file);
       }
 
       const uploadRes = await fetch(`${API_URL}/admin/upload`, {
@@ -159,13 +168,17 @@ addProductForm.addEventListener("submit", async (e) => {
       if (uploadData.success) {
         // First image is the main thumbnail (image_url), the rest/all are the array (images)
         imgArray = uploadData.urls;
-        imgPath = imgArray[0];
+        imgPath = imgArray[0] || "";
       } else {
         alert("Erreur lors de l'upload de l'image : " + uploadData.message);
         formSubmitBtn.disabled = false;
         formSubmitBtn.textContent = editingId ? "Mettre à jour le produit" : "Ajouter le produit";
         return;
       }
+    } else {
+      // If no new files uploaded, keep the old images
+      imgArray = currentOldImages;
+      imgPath = imgArray[0] || "";
     }
 
     const productPayload = {
@@ -198,7 +211,11 @@ addProductForm.addEventListener("submit", async (e) => {
     if (data.success) {
       await fetchProducts();
       addProductForm.reset();
-      pImageFile.value = "";
+      pImage1.value = "";
+      pImage2.value = "";
+      pImage3.value = "";
+      pImage4.value = "";
+      currentOldImages = [];
       editingId = null;
       formSubmitBtn.textContent = "Ajouter le produit";
       cancelEditBtn.style.display = "none";
@@ -217,6 +234,7 @@ addProductForm.addEventListener("submit", async (e) => {
 
 cancelEditBtn.addEventListener("click", () => {
   editingId = null;
+  currentOldImages = [];
   addProductForm.reset();
   formSubmitBtn.textContent = "Ajouter le produit";
   cancelEditBtn.style.display = "none";
@@ -253,7 +271,13 @@ adminProductList.addEventListener("click", async (e) => {
       pName.value = p.name;
       pPrice.value = p.price;
       pCategory.value = p.category;
-      pImage.value = p.image_url || ""; // Use the full URL or part of it
+      
+      currentOldImages = p.images && p.images.length > 0 ? p.images : (p.image_url ? [p.image_url] : []);
+      pImage1.value = "";
+      pImage2.value = "";
+      pImage3.value = "";
+      pImage4.value = "";
+      
       pDesc.value = p.description || "";
       pIsNew.checked = p.is_new;
       pBestSeller.checked = p.best_seller;

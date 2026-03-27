@@ -86,9 +86,26 @@
           </div>
 
           <div class="form-group">
-            <label>Image du produit (Lien ou Télécharger)</label>
-            <input type="text" id="pImage" placeholder="Lien de l'image (ex: http...)">
-            <input type="file" id="pImageFile" accept="image/*" multiple class="input" style="margin-top: 10px;">
+            <label>Images du produit (Format 4:3 recommandé)</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 5px;">
+              <div>
+                <span style="font-size: 0.8rem; color: #666; font-weight: 600;">Image Principale (1)</span>
+                <input type="file" id="pImage1" accept="image/*" class="input" style="padding: 8px;">
+              </div>
+              <div>
+                <span style="font-size: 0.8rem; color: #666;">Image (2)</span>
+                <input type="file" id="pImage2" accept="image/*" class="input" style="padding: 8px;">
+              </div>
+              <div>
+                <span style="font-size: 0.8rem; color: #666;">Image (3)</span>
+                <input type="file" id="pImage3" accept="image/*" class="input" style="padding: 8px;">
+              </div>
+              <div>
+                <span style="font-size: 0.8rem; color: #666;">Image (4)</span>
+                <input type="file" id="pImage4" accept="image/*" class="input" style="padding: 8px;">
+              </div>
+            </div>
+            <p style="font-size: 0.75rem; color: #888; margin-top: 8px;">* L'image principale sera affichée sur la première page. Si vous laissez les cases vides lors de la modification, les anciennes images seront conservées.</p>
           </div>
 
           <div class="form-group">
