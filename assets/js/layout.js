@@ -43,7 +43,7 @@
       </nav>
     </div>
 
-    <a class="brand-text" href="index.html" aria-label="SUITING FABRICS">SUITING FABRICS</a>
+    <a class="brand-text" href="index.html" aria-label="SUITING FABRICS">SUITING <span class="gold-text">FABRICS</span></a>
 
     <div class="header-right">
 
@@ -76,7 +76,7 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-col footer-brand-col">
-      <div class="footer-logo">SUITING FABRICS</div>
+      <div class="footer-logo">SUITING <span class="gold-text">FABRICS</span></div>
 <div class="footer-tagline">
   Thobes premium au Maroc • Commande rapide via WhatsApp • Qualité & style.
 </div>
@@ -127,7 +127,7 @@
 
 
   <div class="container footer-bottom">
-    <div class="footer-copy">© ${year} SUITING FABRICS • Tous droits réservés</div>
+    <div class="footer-copy">© ${year} SUITING <span class="gold-text">FABRICS</span> • Tous droits réservés</div>
     <div class="footer-mini-links">
       <a href="a-propos.html">À propos</a>
       <a href="contact.html">Contact</a>
