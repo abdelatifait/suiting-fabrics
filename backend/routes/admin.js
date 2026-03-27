@@ -102,12 +102,12 @@ router.post('/upload', requireAdmin, upload.array('images', 5), async (req, res)
     for (const file of req.files) {
       const fileName = `products/${Date.now()}-${Math.floor(Math.random() * 1000)}-${file.originalname.replace(/[^a-zA-Z0-9.]/g, '_')}`;
 
-      // Convert Node Buffer to standard ArrayBuffer for Supabase Storage (prevents Node 18 native fetch hanging)
-      const arrayBuffer = new Uint8Array(file.buffer).buffer;
+      // Convert Node Buffer to Blob so native fetch sends Content-Length instead of Transfer-Encoding: chunked
+      const blob = new Blob([file.buffer], { type: file.mimetype });
 
       const { error: uploadError } = await supabase.storage
         .from('product-images')
-        .upload(fileName, arrayBuffer, {
+        .upload(fileName, blob, {
           contentType: file.mimetype,
           upsert: false
         });
