@@ -36,6 +36,12 @@ app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Suiting Fabrics API is running' });
 });
 
+// Global Error Handler
+app.use((err, req, res, next) => {
+  console.error('Express Global Error:', err);
+  res.status(500).json({ success: false, message: err.message || 'Internal Server Error', error: err.toString() });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
