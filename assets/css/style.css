@@ -1721,16 +1721,21 @@ main{
 /* Mobile: stack vertically */
 @media (max-width:640px){
   .modal-panel{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr; /* Force 1 column: image on top, info below */
     max-height:92vh;
     overflow-y:auto;
     border-radius:16px;
+    display:flex;
+    flex-direction:column;
   }
   .modal-img-wrap{
+    width: 100%;
     max-height: 50vh; /* keep text visible without excessive scrolling */
+    flex-shrink: 0;
   }
   .modal-info{
     padding:20px 18px;
+    flex: 1;
   }
   .modal-name{font-size:18px}
   .modal-price{font-size:22px}
