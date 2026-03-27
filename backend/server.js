@@ -33,7 +33,7 @@ app.use('/api/admin', adminRouter);
 
 // Health check
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Suiting Fabrics API is running' });
+  res.json({ status: 'ok', message: 'Suiting Fabrics API is running v2' });
 });
 
 // Global Error Handler
