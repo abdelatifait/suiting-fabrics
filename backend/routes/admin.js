@@ -103,7 +103,7 @@ router.delete('/products/:id', requireAdmin, async (req, res) => {
 });
 
 // POST /api/admin/upload — Uploader de multiples images dans Supabase Storage
-router.post('/upload', requireAdmin, upload.array('images', 5), async (req, res) => {
+router.post('/upload', requireAdmin, upload.any(), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ success: false, message: 'Aucune image fournie' });
