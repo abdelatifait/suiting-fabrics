@@ -141,11 +141,14 @@ addProductForm.addEventListener("submit", async (e) => {
 
   try {
     let imgPath = pImage.value;
+    let imgArray = [];
 
-    // Handle image upload if a file is selected
+    // Handle image upload if files are selected
     if (pImageFile.files.length > 0) {
       const formData = new FormData();
-      formData.append("image", pImageFile.files[0]);
+      for (let i = 0; i < pImageFile.files.length; i++) {
+        formData.append("images", pImageFile.files[i]);
+      }
 
       const uploadRes = await fetch(`${API_URL}/admin/upload`, {
         method: "POST",
@@ -154,7 +157,9 @@ addProductForm.addEventListener("submit", async (e) => {
       });
       const uploadData = await uploadRes.json();
       if (uploadData.success) {
-        imgPath = uploadData.url;
+        // First image is the main thumbnail (image_url), the rest/all are the array (images)
+        imgArray = uploadData.urls;
+        imgPath = imgArray[0];
       } else {
         alert("Erreur lors de l'upload de l'image : " + uploadData.message);
         formSubmitBtn.disabled = false;
@@ -169,6 +174,7 @@ addProductForm.addEventListener("submit", async (e) => {
       category: pCategory.value,
       description: pDesc.value,
       image_url: imgPath,
+      images: imgArray.length > 0 ? imgArray : (imgPath ? [imgPath] : []),
       is_new: pIsNew.checked,
       best_seller: pBestSeller.checked
     };

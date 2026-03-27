@@ -42,10 +42,10 @@ router.get('/products', requireAdmin, async (req, res) => {
 // POST /api/admin/products — Ajouter un produit
 router.post('/products', requireAdmin, async (req, res) => {
   try {
-    const { name, price, category, description, image_url, is_new, best_seller } = req.body;
+    const { name, price, category, description, image_url, images, is_new, best_seller } = req.body;
     const { data, error } = await supabase
       .from('products')
-      .insert([{ name, price, category, description, image_url, is_new, best_seller }])
+      .insert([{ name, price, category, description, image_url, images: images || [], is_new, best_seller }])
       .select()
       .single();
 
@@ -60,12 +60,13 @@ router.post('/products', requireAdmin, async (req, res) => {
 router.put('/products/:id', requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, category, description, image_url, is_new, best_seller } = req.body;
+    const { name, price, category, description, image_url, images, is_new, best_seller } = req.body;
     const { data, error } = await supabase
       .from('products')
-      .update({ name, price, category, description, image_url, is_new, best_seller })
+      .update({ name, price, category, description, image_url, images: images || [], is_new, best_seller })
       .eq('id', id)
       .select()
+
       .single();
 
     if (error) throw error;
@@ -87,29 +88,35 @@ router.delete('/products/:id', requireAdmin, async (req, res) => {
   }
 });
 
-// POST /api/admin/upload — Uploader une image dans Supabase Storage
-router.post('/upload', requireAdmin, upload.single('image'), async (req, res) => {
+// POST /api/admin/upload — Uploader de multiples images dans Supabase Storage
+router.post('/upload', requireAdmin, upload.array('images', 5), async (req, res) => {
   try {
-    if (!req.file) {
+    if (!req.files || req.files.length === 0) {
       return res.status(400).json({ success: false, message: 'Aucune image fournie' });
     }
 
-    const fileName = `products/${Date.now()}-${req.file.originalname.replace(/\s/g, '_')}`;
+    const uploadedUrls = [];
 
-    const { error: uploadError } = await supabase.storage
-      .from('product-images')
-      .upload(fileName, req.file.buffer, {
-        contentType: req.file.mimetype,
-        upsert: false
-      });
+    for (const file of req.files) {
+      const fileName = `products/${Date.now()}-${Math.floor(Math.random() * 1000)}-${file.originalname.replace(/[^a-zA-Z0-9.]/g, '_')}`;
 
-    if (uploadError) throw uploadError;
+      const { error: uploadError } = await supabase.storage
+        .from('product-images')
+        .upload(fileName, file.buffer, {
+          contentType: file.mimetype,
+          upsert: false
+        });
 
-    const { data: urlData } = supabase.storage
-      .from('product-images')
-      .getPublicUrl(fileName);
+      if (uploadError) throw uploadError;
 
-    res.json({ success: true, url: urlData.publicUrl });
+      const { data: urlData } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(fileName);
+
+      uploadedUrls.push(urlData.publicUrl);
+    }
+
+    res.json({ success: true, urls: uploadedUrls });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
