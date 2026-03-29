@@ -35,6 +35,7 @@ const pImage4 = document.getElementById("pImage4");
 let currentOldImages = [];
 
 const pDesc = document.getElementById("pDesc");
+const boldBtn = document.getElementById("boldBtn");
 const pIsNew = document.getElementById("pIsNew");
 const pBestSeller = document.getElementById("pBestSeller");
 
@@ -290,6 +291,34 @@ adminProductList.addEventListener("click", async (e) => {
     }
   }
 });
+
+// --- 4. Utilities ---
+if (boldBtn && pDesc) {
+  boldBtn.addEventListener("click", () => {
+    const start = pDesc.selectionStart;
+    const end = pDesc.selectionEnd;
+    const text = pDesc.value;
+    const selection = text.substring(start, end);
+    
+    if (selection) {
+      const before = text.substring(0, start);
+      const after = text.substring(end);
+      pDesc.value = before + "<b>" + selection + "</b>" + after;
+      
+      // Update selection for better UX
+      pDesc.focus();
+      const newPos = end + 7; // <b> and </b> length
+      pDesc.setSelectionRange(newPos, newPos);
+    } else {
+      // If nothing selected, just insert the tags and put cursor in between
+      const before = text.substring(0, start);
+      const after = text.substring(start);
+      pDesc.value = before + "<b></b>" + after;
+      pDesc.focus();
+      pDesc.setSelectionRange(start + 3, start + 3);
+    }
+  });
+}
 
 // Init
 checkAuth();

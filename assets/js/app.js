@@ -212,7 +212,7 @@ function openModal(product) {
   document.getElementById("modalName").textContent     = product.name || "";
   document.getElementById("modalCategory").textContent = product.category || "";
   document.getElementById("modalPrice").textContent    = formatMAD(product.price);
-  document.getElementById("modalDesc").textContent     = product.description || product.desc || "Aucune description disponible.";
+  document.getElementById("modalDesc").innerHTML       = product.description || product.desc || "Aucune description disponible.";
 
   // WhatsApp link
   const waText = `Bonjour, je veux commander : ${product.name} (${formatMAD(product.price)})`;
