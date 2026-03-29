@@ -28,20 +28,20 @@ img:"./assets/img/products/thobe-03.jpg",    isNew:true,
     bestSeller:true
   },
   {
-    id:"motifs_01",
+    id:"brode_01",
     name:"Tissu Motifs Raffinés",
     price:399,
-    category:"motifs",
+    category:"brode_dentelle",
     desc:"Motifs élégants et discrets, style chic pour occasions.",
 img:"./assets/img/products/thobe-04.jpg",    isNew:false,
     bestSeller:true
   },
 
   {
-    id:"motifs_02",
+    id:"brode_02",
     name:"Tissu Motifs ",
     price:100,
-    category:"motifs",
+    category:"brode_dentelle",
     desc:"Motifs élégants et discrets, style chic pour occasions.",
 img:"./assets/img/products/thobe-05.jpg",    isNew:false,
     bestSeller:false
@@ -50,7 +50,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_03",
   name: "Tissu Simple Gris Premium",
   price: 299,
-  category: "simple", // simple | imprime | motifs
+  category: "simple", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-06.jpg",
 
@@ -62,7 +62,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_05",
   name: "Tissu Simple Gris Premium",
   price: 399,
-  category: "simple", // simple | imprime | motifs
+  category: "simple", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-07.jpg",
 
@@ -74,7 +74,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_06",
   name: "Tissu Simple Gris Premium",
   price: 190,
-  category: "simple", // simple | imprime | motifs
+  category: "simple", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-08.jpg",
 
@@ -97,7 +97,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_04",
   name: "Tissu Simple Gris Premium",
   price: 350,
-  category: "simple", // simple | imprime | motifs
+  category: "simple", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-10.jpg",
 
@@ -109,7 +109,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_07",
   name: "Tissu Simple Gris Premium",
   price: 449,
-  category: "simple", // simple | imprime | motifs
+  category: "simple", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-11.jpg",
 
@@ -121,7 +121,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_08",
   name: "Tissu Simple Gris Premium",
   price: 650,
-  category: "imprime", // simple | imprime | motifs
+  category: "imprime", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-12.jpg",
 
@@ -133,7 +133,7 @@ img:"./assets/img/products/thobe-05.jpg",    isNew:false,
   id: "simple_09",
   name: "Tissu Simple Gris Premium",
   price: 300,
-  category: "motifs", // simple | imprime | motifs
+  category: "brode_dentelle", // simple | imprime | brode_dentelle
   desc: "Coupe droite, tissu premium, très confortable.",
   img: "./assets/img/products/thobe-13.jpg",
 

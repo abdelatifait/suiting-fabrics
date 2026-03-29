@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS products (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   price INTEGER NOT NULL,
-  category TEXT NOT NULL CHECK (category IN ('simple', 'imprime', 'motifs')),
+  category TEXT NOT NULL CHECK (category IN ('simple', 'imprime', 'brode_dentelle')),
   description TEXT,
   image_url TEXT,
   is_new BOOLEAN DEFAULT false,
@@ -30,8 +30,8 @@ INSERT INTO products (name, price, category, description, image_url, is_new, bes
   ('Tissu Simple Classique Blanc', 349, 'simple', 'Coupe droite, tissu confortable, idéal pour le quotidien.', '', true, true),
   ('Tissu Simple Noir Élégant', 379, 'simple', 'Style minimal et moderne, finition propre et élégante.', '', true, false),
   ('Tissu Imprimé Moderne', 399, 'imprime', 'Design imprimé élégant, parfait pour se démarquer avec classe.', '', true, true),
-  ('Tissu Motifs Raffinés', 399, 'motifs', 'Motifs élégants et discrets, style chic pour occasions.', '', false, true),
-  ('Tissu Motifs Premium', 100, 'motifs', 'Motifs élégants et discrets, style chic pour occasions.', '', false, false),
+  ('Tissu Motifs Raffinés', 399, 'brode_dentelle', 'Motifs élégants et discrets, style chic pour occasions.', '', false, true),
+  ('Tissu Motifs Premium', 100, 'brode_dentelle', 'Motifs élégants et discrets, style chic pour occasions.', '', false, false),
   ('Tissu Simple Gris Premium', 299, 'simple', 'Coupe droite, tissu premium, très confortable.', '', true, false),
   ('Tissu Simple Gris Premium', 399, 'simple', 'Coupe droite, tissu premium, très confortable.', '', true, false),
   ('Tissu Simple Gris Premium', 190, 'simple', 'Coupe droite, tissu premium, très confortable.', '', true, false),
@@ -39,4 +39,4 @@ INSERT INTO products (name, price, category, description, image_url, is_new, bes
   ('Tissu Simple Gris Premium', 350, 'simple', 'Coupe droite, tissu premium, très confortable.', '', true, false),
   ('Tissu Simple Gris Premium', 449, 'simple', 'Coupe droite, tissu premium, très confortable.', '', true, false),
   ('Tissu Simple Gris Premium', 650, 'imprime', 'Coupe droite, tissu premium, très confortable.', '', true, false),
-  ('Tissu Simple Gris Premium', 300, 'motifs', 'Coupe droite, tissu premium, très confortable.', '', true, false);
+  ('Tissu Simple Gris Premium', 300, 'brode_dentelle', 'Coupe droite, tissu premium, très confortable.', '', true, false);
