@@ -102,7 +102,7 @@
     <div class="footer-col">
       <div class="footer-title">Catégories</div>
       <div class="footer-links">
-        <a href="produits.html?cat=imprime">Imprimé</a>
+        <a href="produits.html?cat=imprime" style="display:none;">Imprimé</a>
         <a href="produits.html?cat=simple">Simple</a>
         <a href="produits.html?cat=brode_dentelle">BRODÉ / DENTELLE</a>
       </div>
