@@ -1,6 +1,7 @@
 :root{
   --brand-1:#252122;
   --brand-2:#7C7C7C;
+  --gold:#D4AF37;
   --bg:#ffffff;
   --bg-2:#F6F6F6;
   --text:#252122;
@@ -74,7 +75,7 @@ h1,h2,h3,h4{
 }
 .divider{
   width:46px;height:2px;
-  background:var(--brand-2);
+  background:var(--gold);
   margin:14px auto 0;
   border-radius:99px;
 }
@@ -389,7 +390,7 @@ h1,h2,h3,h4{
   background:var(--bg-2);
 }
 .review-name{font-family:"Montserrat";font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.5px}
-.review-stars{color:var(--brand-1);font-size:13px;letter-spacing:1px}
+.review-stars{color:var(--gold);font-size:13px;letter-spacing:1px}
 .review-text{margin:0;color:var(--muted);font-size:14px;line-height:1.7}
 @media (max-width: 900px){ .reviews-grid{grid-template-columns:1fr} }
 
@@ -509,6 +510,7 @@ h1,h2,h3,h4{
 .footer-title{
   font-family:"Montserrat";
   font-weight:800;
+  color:var(--gold);
   text-transform:uppercase;
   letter-spacing:.8px;
   font-size:13px;
