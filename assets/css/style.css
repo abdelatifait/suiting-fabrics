@@ -1717,6 +1717,57 @@ main{
   margin:0;color:var(--muted);
   font-size:14px;line-height:1.75;
 }
+
+/* ===== Description formatting (modal + card) ===== */
+/* <hr> séparateur dans description */
+.modal-desc hr,
+.card-desc hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 8px 0;
+}
+
+/* <b> gras */
+.modal-desc b,
+.card-desc b {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* <i> italique */
+.modal-desc i,
+.card-desc i {
+  font-style: italic;
+}
+
+/* <u> souligné */
+.modal-desc u,
+.card-desc u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Texte doré (gold accent) */
+.modal-desc .gold-text,
+.card-desc .gold-text {
+  color: #D4AF37 !important;
+  font-weight: 600;
+}
+
+/* Points de liste • */
+.modal-desc br + text,
+.card-desc {
+  white-space: normal;
+}
+
+/* Card desc: max 4 lignes en aperçu */
+.card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .modal-wa-btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
   padding:14px 20px;border-radius:999px;

@@ -24,6 +24,12 @@ const WHATSAPP_PHONE = "212661935547";
 
 function formatMAD(n) { return `${n} MAD`; }
 
+/* Convertit les sauts de ligne \n en <br> pour respecter la mise en forme */
+function renderDesc(text) {
+  if (!text) return '';
+  return text.replace(/\n/g, '<br>');
+}
+
 function getCategoryFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get("cat");
@@ -46,7 +52,7 @@ function productCardHTML(p) {
 
       <div class="card-body">
         <h3 class="card-title">${p.name}</h3>
-        <p class="card-desc">${p.desc || p.description || ""}</p>
+        <p class="card-desc">${renderDesc(p.desc || p.description || "")}</p>
 
         <div class="card-meta">
           <div class="price">${formatMAD(p.price)}</div>
@@ -212,7 +218,7 @@ function openModal(product) {
   document.getElementById("modalName").textContent     = product.name || "";
   document.getElementById("modalCategory").textContent = product.category || "";
   document.getElementById("modalPrice").textContent    = formatMAD(product.price);
-  document.getElementById("modalDesc").innerHTML       = product.description || product.desc || "Aucune description disponible.";
+  document.getElementById("modalDesc").innerHTML       = renderDesc(product.description || product.desc || "Aucune description disponible.");
 
   // WhatsApp link
   const waText = `Bonjour, je veux commander : ${product.name} (${formatMAD(product.price)})`;

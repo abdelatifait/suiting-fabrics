@@ -35,7 +35,13 @@ const pImage4 = document.getElementById("pImage4");
 let currentOldImages = [];
 
 const pDesc = document.getElementById("pDesc");
-const boldBtn = document.getElementById("boldBtn");
+const boldBtn      = document.getElementById("boldBtn");
+const italicBtn    = document.getElementById("italicBtn");
+const underlineBtn = document.getElementById("underlineBtn");
+const bulletBtn    = document.getElementById("bulletBtn");
+const goldBtn      = document.getElementById("goldBtn");
+const sepBtn       = document.getElementById("sepBtn");
+const brBtn        = document.getElementById("brBtn");
 const pIsNew = document.getElementById("pIsNew");
 const pBestSeller = document.getElementById("pBestSeller");
 
@@ -279,7 +285,7 @@ adminProductList.addEventListener("click", async (e) => {
       pImage3.value = "";
       pImage4.value = "";
       
-      pDesc.value = p.description || "";
+      pDesc.value = (p.description || "").replace(/<br\s*\/?>/gi, '\n');
       pIsNew.checked = p.is_new;
       pBestSeller.checked = p.best_seller;
       
@@ -292,33 +298,43 @@ adminProductList.addEventListener("click", async (e) => {
   }
 });
 
-// --- 4. Utilities ---
-if (boldBtn && pDesc) {
-  boldBtn.addEventListener("click", () => {
-    const start = pDesc.selectionStart;
-    const end = pDesc.selectionEnd;
-    const text = pDesc.value;
-    const selection = text.substring(start, end);
-    
-    if (selection) {
-      const before = text.substring(0, start);
-      const after = text.substring(end);
-      pDesc.value = before + "<b>" + selection + "</b>" + after;
-      
-      // Update selection for better UX
-      pDesc.focus();
-      const newPos = end + 7; // <b> and </b> length
-      pDesc.setSelectionRange(newPos, newPos);
-    } else {
-      // If nothing selected, just insert the tags and put cursor in between
-      const before = text.substring(0, start);
-      const after = text.substring(start);
-      pDesc.value = before + "<b></b>" + after;
-      pDesc.focus();
-      pDesc.setSelectionRange(start + 3, start + 3);
-    }
-  });
+// --- 4. Utilities — Éditeur de description ---
+
+/* Entoure la sélection avec des balises d'ouverture/fermeture */
+function wrapSelection(textarea, open, close) {
+  const start = textarea.selectionStart;
+  const end   = textarea.selectionEnd;
+  const text  = textarea.value;
+  const sel   = text.substring(start, end);
+  if (sel) {
+    textarea.value = text.substring(0, start) + open + sel + close + text.substring(end);
+    textarea.focus();
+    textarea.setSelectionRange(start + open.length, end + open.length);
+  } else {
+    textarea.value = text.substring(0, start) + open + close + text.substring(end);
+    textarea.focus();
+    textarea.setSelectionRange(start + open.length, start + open.length);
+  }
 }
+
+/* Insère du texte à la position du curseur */
+function insertAtCursor(textarea, insertion) {
+  const start  = textarea.selectionStart;
+  const before = textarea.value.substring(0, start);
+  const after  = textarea.value.substring(start);
+  textarea.value = before + insertion + after;
+  textarea.focus();
+  textarea.setSelectionRange(start + insertion.length, start + insertion.length);
+}
+
+/* Liaison des boutons de la toolbar */
+if (boldBtn      && pDesc) boldBtn.addEventListener("click",      () => wrapSelection(pDesc, "<b>", "</b>"));
+if (italicBtn    && pDesc) italicBtn.addEventListener("click",    () => wrapSelection(pDesc, "<i>", "</i>"));
+if (underlineBtn && pDesc) underlineBtn.addEventListener("click", () => wrapSelection(pDesc, "<u>", "</u>"));
+if (bulletBtn    && pDesc) bulletBtn.addEventListener("click",    () => insertAtCursor(pDesc, "\n• "));
+if (goldBtn      && pDesc) goldBtn.addEventListener("click",      () => wrapSelection(pDesc, '<span class="gold-text">', "</span>"));
+if (sepBtn       && pDesc) sepBtn.addEventListener("click",       () => insertAtCursor(pDesc, "\n<hr>\n"));
+if (brBtn        && pDesc) brBtn.addEventListener("click",        () => insertAtCursor(pDesc, "\n"));
 
 // Init
 checkAuth();
