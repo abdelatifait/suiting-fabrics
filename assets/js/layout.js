@@ -84,7 +84,7 @@
     <div class="footer-col footer-brand-col">
       <div class="footer-logo">SUITING <span class="gold-text">FABRICS</span></div>
 <div class="footer-tagline">
-  Thobes premium au Maroc • Commande rapide via WhatsApp • Qualité & style.
+  Tissus premium au Maroc • Commande rapide via WhatsApp • Qualité & style.
 </div>
       <div class="footer-social">
         <a class="footer-social-btn" href="https://wa.me/${WHATSAPP_NUMBER}" target="_blank" rel="noopener noreferrer">WhatsApp</a>

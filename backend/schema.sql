@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS products (
   category TEXT NOT NULL CHECK (category IN ('simple', 'imprime', 'brode_dentelle')),
   description TEXT,
   image_url TEXT,
+  images TEXT[] DEFAULT '{}',
   is_new BOOLEAN DEFAULT false,
   best_seller BOOLEAN DEFAULT false,
   created_at TIMESTAMPTZ DEFAULT NOW()
