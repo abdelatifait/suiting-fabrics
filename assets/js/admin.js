@@ -51,6 +51,7 @@ async function checkAuth() {
     loginOverlay.style.display = "none";
     adminContent.style.display = "block";
     await fetchProducts();
+    await fetchSiteSettings();
     renderUI();
   }
 }
@@ -72,6 +73,7 @@ loginBtn.addEventListener("click", async () => {
       loginOverlay.style.display = "none";
       adminContent.style.display = "block";
       await fetchProducts();
+      await fetchSiteSettings();
       renderUI();
     } else {
       loginError.style.display = "block";
@@ -89,6 +91,145 @@ adminPassword.addEventListener("keypress", (e) => {
 });
 
 // --- 2. Logic ---
+
+// =====================================================
+// --- Site Images Management ---
+// =====================================================
+
+const SITE_IMAGE_GROUPS = [
+  {
+    gridId: 'siteGrid_hero',
+    items: [
+      { key: 'hero_bg', label: 'Image de fond', aspect: '16/9' },
+    ]
+  },
+  {
+    gridId: 'siteGrid_about',
+    items: [
+      { key: 'about_shop_img', label: 'Photo du magasin', aspect: '4/3' },
+    ]
+  },
+  {
+    gridId: 'siteGrid_cats',
+    items: [
+      { key: 'cat_simple_img',  label: 'Simple',          aspect: '4/3' },
+      { key: 'cat_brode_img',   label: 'Brodé / Dentelle', aspect: '4/3' },
+    ]
+  },
+  {
+    gridId: 'siteGrid_insta',
+    items: [
+      { key: 'instagram_1', label: 'Photo 1', aspect: '1/1' },
+      { key: 'instagram_2', label: 'Photo 2', aspect: '1/1' },
+      { key: 'instagram_3', label: 'Photo 3', aspect: '1/1' },
+      { key: 'instagram_4', label: 'Photo 4', aspect: '1/1' },
+    ]
+  }
+];
+
+let currentSiteSettings = {};
+
+async function fetchSiteSettings() {
+  try {
+    const res = await fetch(`${API_URL}/admin/site-settings`, {
+      headers: { 'x-admin-password': sessionStorage.getItem('adminPass') }
+    });
+    const data = await res.json();
+    if (data.success) {
+      currentSiteSettings = data.settings;
+      renderSiteImages();
+    }
+  } catch (err) {
+    console.error('Failed to fetch site settings', err);
+  }
+}
+
+function renderSiteImages() {
+  SITE_IMAGE_GROUPS.forEach(group => {
+    const grid = document.getElementById(group.gridId);
+    if (!grid) return;
+    grid.innerHTML = group.items.map(item => {
+      const url = currentSiteSettings[item.key] || '';
+      const previewStyle = `aspect-ratio:${item.aspect};`;
+      return `
+        <div class="site-img-card">
+          <div class="site-img-preview" style="${previewStyle}">
+            ${url
+              ? `<img src="${url}" alt="${item.label}" loading="lazy">`
+              : `<div class="site-img-placeholder">🖼️</div>`
+            }
+          </div>
+          <div class="site-img-body">
+            <div class="site-img-label">${item.label}</div>
+            <input type="file" id="file_${item.key}" accept="image/*" style="display:none;">
+            <button class="site-img-btn" id="btn_${item.key}"
+              onclick="document.getElementById('file_${item.key}').click()">
+              Changer l'image
+            </button>
+            <div class="site-img-status" id="status_${item.key}"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Attach change listeners after render
+    group.items.forEach(item => {
+      const fileInput = document.getElementById(`file_${item.key}`);
+      if (fileInput) {
+        fileInput.addEventListener('change', () => handleSiteImageChange(item.key));
+      }
+    });
+  });
+}
+
+async function handleSiteImageChange(key) {
+  const fileInput  = document.getElementById(`file_${key}`);
+  const statusEl   = document.getElementById(`status_${key}`);
+  const btnEl      = document.getElementById(`btn_${key}`);
+  const file       = fileInput.files[0];
+  if (!file) return;
+
+  btnEl.disabled      = true;
+  statusEl.textContent = '⏳ Upload en cours...';
+  statusEl.style.color = '#888';
+
+  try {
+    const formData = new FormData();
+    formData.append('key', key);
+    formData.append('image', file);
+
+    const res  = await fetch(`${API_URL}/admin/site-settings/upload`, {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('adminPass') },
+      body: formData
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      statusEl.textContent = '✅ Mise à jour !';
+      statusEl.style.color = '#28a745';
+      currentSiteSettings[key] = data.url;
+
+      // Mise à jour de la prévisualisation immédiatement
+      const card    = fileInput.closest('.site-img-card');
+      const preview = card.querySelector('.site-img-preview');
+      preview.innerHTML = `<img src="${data.url}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
+
+      setTimeout(() => { statusEl.textContent = ''; }, 3000);
+    } else {
+      statusEl.textContent = '❌ ' + data.message;
+      statusEl.style.color = '#dc3545';
+    }
+  } catch (err) {
+    statusEl.textContent = '❌ Erreur de connexion';
+    statusEl.style.color = '#dc3545';
+  } finally {
+    btnEl.disabled = false;
+    fileInput.value = '';
+  }
+}
+
+// --- 2. Products Logic ---
 
 async function fetchProducts() {
   try {

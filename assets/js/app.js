@@ -320,3 +320,57 @@ async function initAPI() {
 }
 
 window.addEventListener("DOMContentLoaded", initAPI);
+
+/* ========= SITE SETTINGS (Images dynamiques) ========= */
+
+function applySiteSettings(s) {
+  // Hero background
+  if (s.hero_bg) {
+    const hero = document.querySelector('.hero-banner');
+    if (hero) {
+      hero.style.backgroundImage = `url('${s.hero_bg}')`;
+      hero.style.backgroundSize  = 'cover';
+      hero.style.backgroundPosition = 'center';
+    }
+  }
+
+  // About page — photo du magasin
+  if (s.about_shop_img) {
+    const media = document.querySelector('.about-media');
+    if (media) {
+      media.style.backgroundImage    = `url('${s.about_shop_img}')`;
+      media.style.backgroundSize     = 'cover';
+      media.style.backgroundPosition = 'center';
+    }
+  }
+
+  // Catégories
+  if (s.cat_simple_img) {
+    const el = document.querySelector('.cat-2');
+    if (el) { el.style.backgroundImage = `url('${s.cat_simple_img}')`; el.style.backgroundSize = 'cover'; }
+  }
+  if (s.cat_brode_img) {
+    const el = document.querySelector('.cat-3');
+    if (el) { el.style.backgroundImage = `url('${s.cat_brode_img}')`; el.style.backgroundSize = 'cover'; }
+  }
+
+  // Instagram images
+  ['instagram_1', 'instagram_2', 'instagram_3', 'instagram_4'].forEach((key, i) => {
+    if (s[key]) {
+      const imgs = document.querySelectorAll('.insta-card img');
+      if (imgs[i]) imgs[i].src = s[key];
+    }
+  });
+}
+
+async function loadSiteSettings() {
+  try {
+    const res  = await fetch(`${API_URL}/settings`);
+    const data = await res.json();
+    if (data.success) applySiteSettings(data.settings);
+  } catch (e) {
+    // fail silently — le site fonctionne avec les images par défaut
+  }
+}
+
+window.addEventListener("DOMContentLoaded", loadSiteSettings);

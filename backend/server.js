@@ -2,8 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-const productsRouter = require('./routes/products');
-const adminRouter = require('./routes/admin');
+const productsRouter  = require('./routes/products');
+const adminRouter    = require('./routes/admin');
+const settingsRouter = require('./routes/settings');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,9 +29,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Routes
-app.use('/api/products', productsRouter);
-app.use('/api/admin', adminRouter);
+app.use('/api/products',  productsRouter);
+app.use('/api/admin',     adminRouter);
+app.use('/api/settings',  settingsRouter);
+
 
 // Health check
 app.get('/', (req, res) => {

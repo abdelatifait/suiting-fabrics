@@ -139,4 +139,59 @@ router.post('/upload', requireAdmin, upload.any(), async (req, res) => {
   }
 });
 
+// GET /api/admin/site-settings — Récupérer tous les paramètres du site
+router.get('/site-settings', requireAdmin, async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('key, value');
+
+    if (error) throw error;
+
+    const settings = {};
+    (data || []).forEach(row => { settings[row.key] = row.value; });
+
+    res.json({ success: true, settings });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// POST /api/admin/site-settings/upload — Télécharger une image et sauvegarder son URL
+router.post('/site-settings/upload', requireAdmin, upload.single('image'), async (req, res) => {
+  try {
+    const { key } = req.body;
+    if (!key) return res.status(400).json({ success: false, message: 'Clé manquante' });
+    if (!req.file) return res.status(400).json({ success: false, message: 'Aucune image fournie' });
+
+    const ext = req.file.originalname.split('.').pop().replace(/[^a-z0-9]/gi, '');
+    const fileName = `site/${key}-${Date.now()}.${ext}`;
+    const blob = new Blob([req.file.buffer], { type: req.file.mimetype });
+
+    const { error: uploadError } = await supabase.storage
+      .from('product-images')
+      .upload(fileName, blob, { contentType: req.file.mimetype, upsert: true });
+
+    if (uploadError) throw uploadError;
+
+    const { data: urlData } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(fileName);
+
+    const url = urlData.publicUrl;
+
+    // Sauvegarder l'URL dans site_settings
+    const { error: dbError } = await supabase
+      .from('site_settings')
+      .upsert({ key, value: url, updated_at: new Date().toISOString() });
+
+    if (dbError) throw dbError;
+
+    res.json({ success: true, url });
+  } catch (err) {
+    console.error('site-settings upload error:', err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 module.exports = router;

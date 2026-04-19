@@ -41,3 +41,20 @@ INSERT INTO products (name, price, category, description, image_url, is_new, bes
   ('Tissu Simple Gris Premium', 449, 'simple', 'Coupe droite, tissu premium, très confortable.', '', true, false),
   ('Tissu Simple Gris Premium', 650, 'imprime', 'Coupe droite, tissu premium, très confortable.', '', true, false),
   ('Tissu Simple Gris Premium', 300, 'brode_dentelle', 'Coupe droite, tissu premium, très confortable.', '', true, false);
+
+-- =============================================
+-- Site Settings Table (images du site)
+-- Exécutez ce bloc si la table n'existe pas encore
+-- =============================================
+
+CREATE TABLE IF NOT EXISTS site_settings (
+  key TEXT PRIMARY KEY,
+  value TEXT,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Lecture publique autorisée (pour afficher les images sur le site)
+ALTER TABLE site_settings ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow public read site_settings" ON site_settings;
+CREATE POLICY "Allow public read site_settings" ON site_settings
+  FOR SELECT USING (true);
