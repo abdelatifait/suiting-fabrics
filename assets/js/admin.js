@@ -1,4 +1,4 @@
-const API_URL = "https://suiting-fabrics-production.up.railway.app/api";
+const API_URL = "/api";
 
 // --- State ---
 let currentProducts = [];
