@@ -100,29 +100,29 @@ const SITE_IMAGE_GROUPS = [
   {
     gridId: 'siteGrid_hero',
     items: [
-      { key: 'hero_bg', label: 'Image de fond', aspect: '16/9' },
+      { key: 'hero_bg', label: 'Image de fond', aspect: '16/9', fallback: './assets/img/hero.jpg' },
     ]
   },
   {
     gridId: 'siteGrid_about',
     items: [
-      { key: 'about_shop_img', label: 'Photo du magasin', aspect: '4/3' },
+      { key: 'about_shop_img', label: 'Photo du magasin', aspect: '4/3', fallback: './assets/img/about.jpg' },
     ]
   },
   {
     gridId: 'siteGrid_cats',
     items: [
-      { key: 'cat_simple_img',  label: 'Simple',          aspect: '4/3' },
-      { key: 'cat_brode_img',   label: 'Brodé / Dentelle', aspect: '4/3' },
+      { key: 'cat_simple_img',  label: 'Simple',          aspect: '4/3', fallback: './assets/img/categories/imprime.jpg' },
+      { key: 'cat_brode_img',   label: 'Brodé / Dentelle', aspect: '4/3', fallback: './assets/img/categories/brode_dentelle.jpg' },
     ]
   },
   {
     gridId: 'siteGrid_insta',
     items: [
-      { key: 'instagram_1', label: 'Photo 1', aspect: '1/1' },
-      { key: 'instagram_2', label: 'Photo 2', aspect: '1/1' },
-      { key: 'instagram_3', label: 'Photo 3', aspect: '1/1' },
-      { key: 'instagram_4', label: 'Photo 4', aspect: '1/1' },
+      { key: 'instagram_1', label: 'Photo 1', aspect: '1/1', fallback: './assets/img/instagram/ig-1.jpg' },
+      { key: 'instagram_2', label: 'Photo 2', aspect: '1/1', fallback: './assets/img/instagram/ig-2.jpg' },
+      { key: 'instagram_3', label: 'Photo 3', aspect: '1/1', fallback: './assets/img/instagram/ig-3.jpg' },
+      { key: 'instagram_4', label: 'Photo 4', aspect: '1/1', fallback: './assets/img/instagram/ig-4.jpg' },
     ]
   }
 ];
@@ -149,15 +149,12 @@ function renderSiteImages() {
     const grid = document.getElementById(group.gridId);
     if (!grid) return;
     grid.innerHTML = group.items.map(item => {
-      const url = currentSiteSettings[item.key] || '';
+      const url = currentSiteSettings[item.key] || item.fallback;
       const previewStyle = `aspect-ratio:${item.aspect};`;
       return `
         <div class="site-img-card">
           <div class="site-img-preview" style="${previewStyle}">
-            ${url
-              ? `<img src="${url}" alt="${item.label}" loading="lazy">`
-              : `<div class="site-img-placeholder">🖼️</div>`
-            }
+            <img src="${url}" alt="${item.label}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" onerror="this.outerHTML='<div class=\\'site-img-placeholder\\'>🖼️</div>'">
           </div>
           <div class="site-img-body">
             <div class="site-img-label">${item.label}</div>
